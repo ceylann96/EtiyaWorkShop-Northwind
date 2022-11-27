@@ -10,20 +10,31 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
+
+  constructor(private activatedRoute: ActivatedRoute,
+    private router:Router,
+    private productsService: ProductsService) {}
+
+    ngOnInit(): void {
+      this.getCategoryIdFromRoute();
+      this.getSearchProductNameFromRoute();
+      this.getListProducts();
+    }
+
+
   productCardClass: string = 'card col-3 ms-3 mb-3';
 
   products!: Product[];
   isLoaded:boolean = false; 
 
-
-
-
+  
   selectedProductCategoryId: number | null = null;
   searchProductNameInput: string | null = null;
+  
   get filteredProducts(): any[] {
-    
-    let filteredProducts = this.products;
-
+  
+  let filteredProducts = this.products;
+      
     if (this.selectedProductCategoryId)
       filteredProducts = filteredProducts.filter(
         (p:any) => p.categoryId === this.selectedProductCategoryId
@@ -35,20 +46,10 @@ export class ProductListComponent implements OnInit {
           .toLowerCase()
           .includes(this.searchProductNameInput?.toLowerCase())
       );
-
     return filteredProducts;
   }
 
-  constructor(private activatedRoute: ActivatedRoute,
-    private router:Router,
-    private productsService: ProductsService) {}
-
-  ngOnInit(): void {
-    this.getCategoryIdFromRoute();
-    this.getSearchProductNameFromRoute();
-    this.getListProducts();
-  }
-
+ 
   getListProducts() {
     this.productsService.getList().subscribe((response) => {
      //Api'den gelen cevapla beraber spinner tanımını aynı setTimeout içine alarak 
@@ -88,7 +89,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onSearchProductNameChange(event: any): void {
-    
     
     const queryParams:any = {};
     if(this.searchProductNameInput !== '')

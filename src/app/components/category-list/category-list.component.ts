@@ -9,11 +9,20 @@ import { Category } from 'src/app/models/category';
   styleUrls: ['./category-list.component.css'],
 })
 export class CategoryListComponent implements OnInit {
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private categoriesService: CategoriesService
+  ) {}
+
+  ngOnInit(): void {
+    
+    this.getSelectedCategoryIdFromRoute();
+    this.getListCategories();
+  }
+
   title: string = 'Category List';
   categories!: Category[];
-
-
-  
 
   
   private _categoriesListItems: any[] = [{ label: 'All', value: null }];
@@ -35,19 +44,6 @@ export class CategoryListComponent implements OnInit {
   public selectedCategoryId: number | null = null;
 
   
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private categoriesService: CategoriesService
-  ) {
- 
-  }
-
-  ngOnInit(): void {
-    
-    this.getSelectedCategoryIdFromRoute();
-    this.getListCategories();
-  }
-
   getListCategories() {
     this.categoriesService.getList().subscribe((response) => {
       this.categories = response;
@@ -61,8 +57,6 @@ export class CategoryListComponent implements OnInit {
         this.selectedCategoryId = Number(params['categoryId']);
     });
   }
-
-
 
   isSelectedCategory(categoryId: number | null): boolean {
     return categoryId === this.selectedCategoryId;
