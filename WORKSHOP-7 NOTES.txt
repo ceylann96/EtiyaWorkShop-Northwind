@@ -1,0 +1,36 @@
+-NULL VE UNDEFINED
+
+TypeScript'de bir değişken tanımlarsak fakat ona bir değer atamassak
+karşımıza undefined tanımı çıkar. Yani kasıtsız olarak bir değer 
+yokluğudur. Null durumunda ise değişkene değerinin boş olduğunu kendimiz
+belirtiriz. Yani undefined aksine kasıtlı bir değer yokluğudur.
+
+-HTTP REQUEST -HTTP STASUS CODE
+
+Http request istemcimiz tarafından sunucu tarafına web sitesi
+ile ilgili tam olarak ne yapacağımızı bildiren bir mesajdır.Yapacağımız 
+işlemlere göre değişen request türleri vardır. Bunlar; Get,Post,Head,Put,
+connect,delete,options,patch,trace olarak değişir.
+İstemci ile sunucu arasındaki bu iletişimde neler olduğunu açıklayan yapı
+ise http durum kodları olarak adlandırılır.En yaygın durum kodları; 
+404: Bu kod, ulaşılmak istenen sayfanın istek gönderilen sunucuda bulunmadığını ifade eder.
+410: 404 durum kodu ile aralarındaki fark 410 durum kodunu içeren sayfaların kalıcı olarak 
+silinmiş ve geri gelmeyecek olmasıdır.404 durum kodunu içeren sayfalar güncellenebilir 
+ve yeniden erişilebilir olabilir.
+500: Sunucuda bir şeylerin ters gittiğini ve sunucu kaynaklı bir sorun oldugunu gösterir.
+403: Bir sayfaya ulaşılmak istenildiğinde sunucudan gelen sayfanın yasaklandığı yada 
+erişim izni bulunmadığını içeren koddur.
+
+-INTERFACE
+TypeScript'de interfaceler ile objelerin özellik isimlerini ve tiplerini tanımlarız.
+
+-CLASS VE OBJECT
+Classlar objelerin davranışlarını tanımlarlar, bir objenin planı ve şablonudur.Objeler ise
+sınıflardan üretilirler.Objeler sınıfların aksine canlıdır ve kimlikleri vardır.
+Classlar mantıksal varlıklarken objeler fiziksel varlıklardır.
+
+-IoC -Dependency Injection
+Dependency Injection bağımlılık oluşturacak parçaların ayrılıp bunların dışarıdan verilmesiyle
+sistem içindeki bağımlılığı minimize etme işlemidir.IoC ise nesnelerin uygulama boyunca yaşam
+döngüsünden sorumlu bir yazılım tasarım prensibidir.Uygulama içerisinde kullanılan objelerin
+instance'larının yönetimini sağlar, bağımlılığı en aza indirir.
