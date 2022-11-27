@@ -12,6 +12,9 @@ export class CategoryListComponent implements OnInit {
   title: string = 'Category List';
   categories!: Category[];
 
+
+  
+
   
   private _categoriesListItems: any[] = [{ label: 'All', value: null }];
   
