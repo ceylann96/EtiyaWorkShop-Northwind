@@ -1,63 +1,101 @@
 <div class="d-flex">
   <h1 class="display-6">Product List</h1>
   <div class="ms-3 d-flex align-items-center">
-    
+    <!--# One Way binding (tek yönlü atama) -->
+    <!--# Two Way Binding (en temel, klasik): event gerekir ve value değerini dinamik geçmek gerekir. -->
+    <!--# Two Way Binding: [(ngModel)] ile input değerini bir state ile, iki yönlü olarak birbirine bağlayabiliriz -->
     <input
       type="text"
       class="form-control"
       id="searchProductNameInput"
       placeholder="Search..."
-      (keyup)="onSearchProductNameChange($event)"
       
       [(ngModel)]="searchProductNameInput"
     />
-   
+    <!-- [value]="searchProductNameInput" -->
+    <!--: $event ilgili event'in özelliklerinin bulunduğu html tarafından geçilen js objesi angular tarafından geçilecektir. -->
   </div>
+  
+  <button (click)="onSearchProductNameChange($event)"> Ara </button>
+  
 </div>
 
-<div class="row">
-<!-- SPINNER -->
-  <div *ngIf="!isLoaded"> 
-    <div class="spinner-grow" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+<ng-template #loadingSpinner>
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <app-loading-spinner></app-loading-spinner>
   </div>
-<!-- FILTRELERE UYAN URUN YOKSA; -->
-  <div *ngIf="filteredProducts.length<1">
-    <div class="alert alert-danger" role="alert">
-      Aradıgınız Ürün Bulunamamıstır.
-    </div>
-  </div>
+</ng-template>
 
-
-
-  <ng-template ngFor let-product [ngForOf]="filteredProducts">
-   
+<!-- Boolean(isLoading) -->
+<div *ngIf="!!isLoading === false; else loadingSpinner" class="row">
+  <ng-container *ngIf="errorAlertMessage; else productsList">
     <div
-      *ngIf="isProductCardShow(product); else productDiscontinued"
-      [class]="productCardClass"
+      class="alert alert-danger"
+      role="alert"
+      [innerText]="errorAlertMessage"
     >
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="btn btn-primary">Add to Cart</a>
-      </div>
+      <!-- {{ errorAlertMessage || "null" }} -->
     </div>
-   
+  </ng-container>
+  <!--* unordered list -->
+  <!--# Built-in Directive -->
 
-    <ng-template #productDiscontinued>
+  <!--# *ngFor is a built-in structural directive -->
+  <!-- <div *ngFor="let product of products"> -->
+
+  <!--# Attribute directive -->
+  <ng-template #productsList>
+    <ng-template ngFor let-product [ngForOf]="products">
+      <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
+
+      <!--# *ngIf -->
       <div
-        class="{{
-          productCardClass
-        }} d-flex justify-content-center align-items-center"
+        *ngIf="isProductCardShow(product); else productDiscontinued"
+        [class]="productCardClass"
       >
-        <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
       </div>
+      <!--* list istem -->
+
+      <ng-template #productDiscontinued>
+        <div
+          class="{{
+            productCardClass
+          }} d-flex justify-content-center align-items-center"
+        >
+          <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+        </div>
+      </ng-template>
     </ng-template>
   </ng-template>
 
-
+  <!-- </div> -->
 </div>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [ngClass]="{ disabled: pagination.page == 1 }">
+      <button (click)="changePage(pagination.page - 1)" class="page-link">
+        Previous
+      </button>
+    </li>
+    <li class="page-item">
+      <button class="page-link">{{ pagination.page }}</button>
+    </li>
+    <li
+      class="page-item"
+      [ngClass]="{ disabled: pagination.page === lastPage }"
+    >
+      <button (click)="changePage(pagination.page + 1)" class="page-link">
+        Next
+      </button>
+    </li>
+  </ul>
+</nav>

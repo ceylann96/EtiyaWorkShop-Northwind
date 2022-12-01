@@ -10,6 +10,9 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import {HttpClientModule} from '@angular/common/http';
     CategoryListComponent,
     ProductListComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    LoadingSpinnerComponent,
+    ProductDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,
