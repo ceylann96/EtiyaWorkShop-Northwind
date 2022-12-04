@@ -47,10 +47,4 @@ export class DashboardProductsListComponent implements OnInit {
       pagination: this.pagination,
     });
   }
-
-  resetPagination(): void {
-    this.pagination.page = 1;
-    this.lastPage = undefined;
-  }
-
 }
