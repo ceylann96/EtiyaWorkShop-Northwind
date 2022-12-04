@@ -8,10 +8,21 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { DashboardProductsPageComponent } from './pages/dashboard-products-page/dashboard-products-page.component';
+import { DashboardProductsListComponent } from './components/dashboard-products-list/dashboard-products-list.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
+import { DashboardCategoriesPageComponent } from './pages/dashboard-categories-page/dashboard-categories-page.component';
+import { CategoryFormPageComponent } from './pages/category-form-page/category-form-page.component';
+import { DashboardCategoriesListComponent } from './components/dashboard-categories-list/dashboard-categories-list.component';
+
 
 
 @NgModule({
@@ -24,13 +35,24 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     LoginPageComponent,
     LoadingSpinnerComponent,
     ProductDetailsComponent,
+    ProductFormComponent,
+    ProductFormPageComponent,
+    DashboardProductsPageComponent,
+    DashboardProductsListComponent,
+    CategoryFormComponent,
+    DashboardCategoriesPageComponent,
+    CategoryFormPageComponent,
+    DashboardCategoriesListComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

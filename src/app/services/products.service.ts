@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -43,9 +44,29 @@ export class ProductsService {
 
  
 
-  getById(id:number):Observable<Product>{
-    return this.httpClient.get<Product>("http://localhost:3000/products/"+id);
+  getById(productId:number):Observable<Product>{
+    
+    return this.httpClient.get<Product>(`${this.controllerUrl}/${productId}`);
 }
+
+add(request:Product): Observable<Product> {
+  return this.httpClient.post<Product>(this.controllerUrl,request)
+}
+
+update(request: Product): Observable<Product> {
+  return this.httpClient.put<Product>(
+    `${this.controllerUrl}/${request.id}`,
+    request
+  );
+}
+
+delete(productId: number): Observable<Product> {
+  return this.httpClient.delete<Product>(
+    `${this.controllerUrl}/${productId}`
+  );
+}
+
+
 }
 
 

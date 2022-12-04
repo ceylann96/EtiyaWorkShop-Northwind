@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NAME</th>
+        <th scope="col">DESCRIPTION</th>
+       
+        </tr>
+    </thead>
+    
+    <tbody *ngFor="let category of categories">
+      
+      <tr>
+        <td>{{category.id}}</td>
+        <td>{{category.name}}</td>
+        <td>{{category.description}}</td>
+     
+        
+        <button routerLink="/dashboard/categories/edit/{{category.id}}"> EDIT </button>
+      </tr>
+      
+    </tbody>
+  </table>
+
