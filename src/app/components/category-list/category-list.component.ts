@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/category';
@@ -107,5 +107,14 @@ export class CategoryListComponent implements OnInit {
 
   isSelectedCategory(categoryId: number | null): boolean {
     return categoryId === this.selectedCategoryId;
+  }
+
+
+
+  @Input() page!:number;
+  @Output() onSearch = new EventEmitter<number>();
+
+  search() {
+    this.onSearch.emit(this.page);
   }
 }

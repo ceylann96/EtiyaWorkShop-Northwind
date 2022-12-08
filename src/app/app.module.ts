@@ -22,6 +22,13 @@ import { CategoryFormComponent } from './components/category-form/category-form.
 import { DashboardCategoriesPageComponent } from './pages/dashboard-categories-page/dashboard-categories-page.component';
 import { CategoryFormPageComponent } from './pages/category-form-page/category-form-page.component';
 import { DashboardCategoriesListComponent } from './components/dashboard-categories-list/dashboard-categories-list.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { FilterProductPipe } from './pipes/filter-product.pipe';
+import { FilterProductByPricePipe } from './pipes/filter-product-by-price.pipe';
+import { HighlightDirective } from './directives/highlight.directive';
+import { ButtonDirective } from './directives/button.directive';
+
+import { FilterAllPipe } from './pipes/filter-all.pipe';
 
 
 
@@ -43,6 +50,12 @@ import { DashboardCategoriesListComponent } from './components/dashboard-categor
     DashboardCategoriesPageComponent,
     CategoryFormPageComponent,
     DashboardCategoriesListComponent,
+    ProductCardComponent,
+    FilterProductPipe,
+    FilterProductByPricePipe,
+    HighlightDirective,
+    ButtonDirective,
+    FilterAllPipe,
     
   ],
   imports: [

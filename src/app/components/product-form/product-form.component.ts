@@ -1,10 +1,14 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Category } from 'src/app/models/category';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { SuppliersService } from 'src/app/services/suppliers.service';
+import { Supplier } from 'src/app/models/supplier';
 
 @Component({
   selector: 'app-product-form',
@@ -14,8 +18,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   productToUpdate: Product | null = null;
-  
-  get isEditting():boolean {
+  categories: Category[] = [];
+  suppliers: Supplier[]= [];
+  get isEditting(): boolean {
     return this.productToUpdate !== null;
   }
 
@@ -24,7 +29,9 @@ export class ProductFormComponent implements OnInit {
     private productsService: ProductsService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private categoriesService: CategoriesService,
+    private suppliersService: SuppliersService
   ) {
     // this.productForm = new FormGroup({
     //   name: new FormControl(''),
@@ -32,8 +39,21 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProductIdFromRoute();
+    this.getCategories();
     this.createProductForm();
+    this.getProductIdFromRoute();
+    this.getSuppliers();
+  }
+  getCategories(): void {
+    this.categoriesService.getList().subscribe((response: Category[]) => {
+      this.categories = response;
+    });
+  }
+
+  getSuppliers(): void {
+    this.suppliersService.getList().subscribe((response: Supplier[]) => {
+      this.suppliers = response;
+    });
   }
 
   createProductForm(): void {
@@ -50,29 +70,58 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  getProductIdFromRoute() {
-    this.activatedRoute.params.subscribe((params)=> {
-      if(params['productId']) this.getProductById(params['productId']);
-    })
+  getProductIdFromRoute(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['productId']) this.getProductById(params['productId']);
+    });
   }
+
   getProductById(productId: number) {
-    this.productsService.getById(productId).subscribe((response)=>{
-    this.productToUpdate= response;
-    this.productForm.patchValue(this.productToUpdate);
-    })
+    this.productsService.getById(productId).subscribe({
+      next: (response) => {
+        this.productToUpdate = response;
+        this.productForm.patchValue(this.productToUpdate); //: Formun içine productToUpdate modelini doldurur.
+      },
+      error: () => {
+        this.toastrService.error('Product not found');
+        this.router.navigate(['/dashboard', 'products']);
+      },
+    });
   }
-
-
 
   onProductFormSubmit(): void {
     if (this.productForm.invalid) {
-      this.toastrService.error('please fill in the form correctly');
+      this.toastrService.error('Please fill in the form correctly');
       return;
     }
-    if(this.isEditting) this.update()
+
+    if (this.isEditting) this.update();
     else this.add();
   }
-  update():void {
+
+  onDeleteProduct(): void {
+    if (confirm('Are you sure you want to delete this product?') === false)
+      return;
+
+    this.delete();
+  }
+
+  add(): void {
+    const request: Product = {
+      //: Backend'in product add endpoint'ine gönderilecek olan request modeli.
+      ...this.productForm.value,
+      categoryId: Number(this.productForm.value.categoryId),
+      supplierId: Number(this.productForm.value.supplierId), // ilgili categoryId'i al ama numerik olarak yazdır.
+      name: this.productForm.value.name.trim(), //= ...this.productForm.value ile gelen 'name' değerinin üzerin tekrar yazıyoruz (overwrite).
+    };
+
+    this.productsService.add(request).subscribe((response) => {
+      this.toastrService.success('Product added successfully');
+      this.router.navigate(['/dashboard', 'products', 'edit', response.id]);
+    });
+  }
+
+  update(): void {
     const request: Product = {
       id: this.productToUpdate!.id,
       categoryId: Number.parseInt(this.productForm.value.categoryId),
@@ -82,35 +131,20 @@ export class ProductFormComponent implements OnInit {
       unitsInStock: Number.parseInt(this.productForm.value.unitsInStock),
       unitsOnOrder: Number.parseInt(this.productForm.value.unitsOnOrder),
       reorderLevel: Number.parseInt(this.productForm.value.reorderLevel),
-      discontinued: this.productForm.value.discontinued,
+      discontinued: Boolean(this.productForm.value.discontinued),
       name: this.productForm.value.name.trim(),
     };
-  
-this.productsService.update(request).subscribe((response)=>{
-  this.productToUpdate=response;
-  this.toastrService.success('product updated successfully');
-})
-    }
 
-    onDeleteProduct():void {
-      this.delete();
-    }
-    delete(): void {
-      this.productsService.delete(this.productToUpdate!.id).subscribe(() => {
-        this.toastrService.success('Product deleted successfully');
-        this.router.navigate(['/dashboard', 'products']);
-      });
-    }
-  
-  add() {
-    //todo: product service yardımıyla ekleme
-    const request: Product= {
-    ...this.productForm.value, 
-    name:this.productForm.value.name.trim(),
-  };
-  this.productsService.add(request).subscribe((response)=>{
-    this.toastrService.success('product added succesfully')
-    console.log(response);
-    })
+    this.productsService.update(request).subscribe((response) => {
+      this.productToUpdate = response;
+      this.toastrService.success('Product updated successfully');
+    });
+  }
+
+  delete(): void {
+    this.productsService.delete(this.productToUpdate!.id).subscribe(() => {
+      this.toastrService.success('Product deleted successfully');
+      this.router.navigate(['/dashboard', 'products']);
+    });
   }
 }

@@ -1,4 +1,5 @@
 .button {
     background-color: rgb(58, 12, 226);
     color: rgb(228, 238, 243);
+    border-radius: 20%;
 }

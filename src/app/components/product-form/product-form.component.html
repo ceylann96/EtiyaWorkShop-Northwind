@@ -15,16 +15,29 @@
 
   <div class="mb-3">
     <label for="categoryInput" class="form-label">Category</label>
-    <input
-      formControlName="categoryId"
-      type="number"
-      id="categoryInput"
-      class="form-control"
-      placeholder="Enter category id"
-    />
+    <select class="form-select" formControlName="categoryId" id="categoryInput">
+      <option disabled value="0">Seçiniz</option>
+      <!-- Display Name - Shown Name -->
+      <!-- Kategorileri al, option'da iterate et ve valuesına idsini, display nameine nameini yazdır -->
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
   </div>
 
   <div class="mb-3">
+    <label for="supplierInput" class="form-label">Supplier</label>
+    <select class="form-select" formControlName="supplierId" id="supplierInput">
+      <option disabled value="0">Seçiniz</option>
+      <!-- Display Name - Shown Name -->
+      <!-- Kategorileri al, option'da iterate et ve valuesına idsini, display nameine nameini yazdır -->
+      <option *ngFor="let supplier of suppliers" [value]="supplier.id">
+        {{ supplier.companyName }}
+      </option>
+    </select>
+  </div>
+
+  <!-- <div class="mb-3">
     <label for="supplierInput" class="form-label">Supplier</label>
     <input
       formControlName="supplierId"
@@ -33,7 +46,7 @@
       class="form-control"
       placeholder="Enter supplier id"
     />
-  </div>
+  </div> -->
 
   <!--TODO: Select Menu ile category'leri opsiyonlar olarak listlemek ve seçtiği category'in id'sini kaydetmek -->
 
@@ -107,7 +120,6 @@
   </div>
   <div class="d-flex justify-content-between">
     <button type="submit" class="btn btn-primary w-25">Save</button>
-    <button class="btn btn-success w-25" routerLink="/dashboard/products"> Products </button>
     <button
       *ngIf="isEditting"
       (click)="onDeleteProduct()"
