@@ -1,0 +1,13 @@
+<div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">{{ todo }}</h5>
+      <a (click)="onDeleteBtnClick()" class="btn btn-danger">Sil</a>
+    </div>
+  </div>
+  
+  <ng-template [ngIfNot]="true" [nfIfNotElse]="alternativeTemplate">
+    <h2>My conditional header</h2>
+  </ng-template>
+  <ng-template #alternativeTemplate>
+    <h2>My alternative header</h2>
+  </ng-template>

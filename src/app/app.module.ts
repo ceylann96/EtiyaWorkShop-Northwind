@@ -9,7 +9,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
@@ -29,6 +29,10 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { ButtonDirective } from './directives/button.directive';
 
 import { FilterAllPipe } from './pipes/filter-all.pipe';
+import { IfNotDirective } from './directives/if-not.directive';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
 
 
 
@@ -56,6 +60,9 @@ import { FilterAllPipe } from './pipes/filter-all.pipe';
     HighlightDirective,
     ButtonDirective,
     FilterAllPipe,
+    IfNotDirective,
+    TodoItemComponent,
+    TodoListComponent,
     
   ],
   imports: [
@@ -67,7 +74,9 @@ import { FilterAllPipe } from './pipes/filter-all.pipe';
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttprequestInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
