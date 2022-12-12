@@ -33,6 +33,8 @@ import { IfNotDirective } from './directives/if-not.directive';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { OverlayLoadingComponent } from './components/overlay-loading/overlay-loading.component';
 
 
 
@@ -63,6 +65,7 @@ import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
     IfNotDirective,
     TodoItemComponent,
     TodoListComponent,
+    OverlayLoadingComponent,
     
   ],
   imports: [
@@ -76,6 +79,7 @@ import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttprequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

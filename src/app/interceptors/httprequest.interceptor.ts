@@ -10,8 +10,14 @@ export class HttprequestInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let date= new Date()
-    console.log(`http request send ${date}`);
+    console.log(`http request sent ${date}`);
     
-    return next.handle(request);
-  }
+    const requestToSend = request.clone({
+      headers: request.headers.set("Authorization", `EXAMPLE-JWT`)
+    
+  })
+  console.log(requestToSend);
+  return next.handle(requestToSend);
+  
+}
 }
