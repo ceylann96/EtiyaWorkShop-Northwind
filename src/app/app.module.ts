@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './shared/components/alert/navbar/navbar.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -34,7 +34,10 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
-import { OverlayLoadingComponent } from './components/overlay-loading/overlay-loading.component';
+import { OverlayLoadingComponent } from './core/components/overlay-loading/overlay-loading.component';
+import { SharedModule } from './shared/shared.module';
+import { FeaturesModule } from './features/features.module';
+import { CoreModule } from './core/core.module';
 
 
 
@@ -65,7 +68,7 @@ import { OverlayLoadingComponent } from './components/overlay-loading/overlay-lo
     IfNotDirective,
     TodoItemComponent,
     TodoListComponent,
-    OverlayLoadingComponent,
+    
     
   ],
   imports: [
@@ -75,12 +78,13 @@ import { OverlayLoadingComponent } from './components/overlay-loading/overlay-lo
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(), SharedModule, FeaturesModule, CoreModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttprequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule { }

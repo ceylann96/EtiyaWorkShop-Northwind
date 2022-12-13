@@ -21,6 +21,6 @@ loadingText: Subject<string> = new Subject<string>()
    setTimeout(() => {
     this.isLoadingSubject.next(false);
    // this.loadingText.next("text finished")
-  }, 3000);
+  }, 1500);
   }
 }
