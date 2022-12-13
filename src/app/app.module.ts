@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/components/alert/navbar/navbar.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -44,7 +43,6 @@ import { CoreModule } from './core/core.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     CategoryListComponent,
     ProductListComponent,
     HomePageComponent,
