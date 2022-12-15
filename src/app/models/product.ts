@@ -9,4 +9,5 @@ export interface Product {
     reorderLevel: number
     discontinued: boolean
     name: string
+    
 }

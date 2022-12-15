@@ -1,0 +1,26 @@
+<div class="container">
+<table class="table table-dark">
+  <thead>
+    <tr>
+      
+      <th scope="col">Product Name</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">QuantityPerUnit</th>
+      <th scope="col">UnitsInStock</th>
+      <!-- <th scope="col">Quantity</th> -->
+      
+    </tr>
+  </thead>
+  <tbody *ngFor="let cart of cartItems">
+    <tr>
+      <td>{{cart.name}}</td>
+      <td>{{cart.unitPrice}}</td>
+      <td>{{cart.quantityPerUnit}}</td>
+      <td>{{cart.unitsInStock}}</td>
+      <!-- <td>{{cart}}</td> -->
+      <button (click)="deleteToCart(cart.id)" type="button" class="btn btn-danger"> Sil </button>
+      <!-- <button type="button" class="btn btn-success"> Ekle </button> -->
+    </tr>
+</tbody>
+</table>
+</div>

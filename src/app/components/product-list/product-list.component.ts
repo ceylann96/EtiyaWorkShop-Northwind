@@ -7,6 +7,8 @@ import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { SuppliersService } from 'src/app/services/suppliers.service';
 import { Supplier } from 'src/app/models/supplier';
+import { CartService } from 'src/app/services/cart.service';
+import {CartItem} from 'src/app/models/cartItem';
 
 @Component({
   selector: 'app-product-list',
@@ -20,6 +22,8 @@ export class ProductListComponent implements OnInit {
   products!: Product[];
   // selectedProductCategoryId: number | null = null;
   searchProductNameInput: string | null = null;
+
+  cartItems: CartItem[] = []
 
   pagination: Pagination = {
     page: 1,
@@ -37,7 +41,8 @@ export class ProductListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private productsService: ProductsService,
-    private supplierService:SuppliersService
+    private supplierService:SuppliersService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +64,10 @@ export class ProductListComponent implements OnInit {
     }
   }
   addToCartClick(product: Product) {
+    this.cartService.add(product).subscribe((response)=> {
+   
+    })
+    
     console.log(
       'ProductListComponentden sepete eklenmesi istenen ürün:',
       product

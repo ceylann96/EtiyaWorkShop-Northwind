@@ -18,9 +18,6 @@ loadingText: Subject<string> = new Subject<string>()
 
   stopLoading(){
    // this.isLoading=false;
-   setTimeout(() => {
-    this.isLoadingSubject.next(false);
-   // this.loadingText.next("text finished")
-  }, 1500);
-  }
+   this.isLoadingSubject.next(false);
+   }
 }
