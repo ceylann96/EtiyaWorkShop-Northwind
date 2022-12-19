@@ -1,40 +1,59 @@
 <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">Etiya</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!--! Angular içerisinde routing yaparken hyperlink reference kullanmak bize yasak. -->
-          <li *ngFor="let navItem of navItems" class="nav-item">
-            <a
-              class="nav-link"
-              routerLink="{{ navItem.routerLink }}"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: navItem.isRouterActiveExact }"
-              >{{ navItem.label }}</a
+  <div class="container">
+    <a class="navbar-brand" href="#">Etiya</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!--! Angular içerisinde routing yaparken hyperlink reference kullanmak bize yasak. -->
+        <li *ngFor="let navItem of navItems" class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="{{ navItem.routerLink }}"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: navItem.isRouterActiveExact }"
+            >{{ navItem.label }}</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+      <form class="d-flex mx-2" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <div class="dropdown pl-2">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-cart-shopping"></i> Sepet ({{ cartLength }})
+        </button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let item of cartItems">
+            <a class="dropdown-item"
+              >{{ item.product.name }} - {{ item.quantity }}</a
             >
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-          <button routerLink="/cart" class="btn btn-outline-success" type="submit"> MyCart</button>
-        </form>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

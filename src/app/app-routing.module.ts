@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { CartComponent } from './features/cart/components/cart/cart.component';
-import { CategoryFormPageComponent } from './pages/category-form-page/category-form-page.component';
-import { DashboardCategoriesPageComponent } from './pages/dashboard-categories-page/dashboard-categories-page.component';
-import { DashboardProductsPageComponent } from './pages/dashboard-products-page/dashboard-products-page.component';
+
+
+
+import { DashboardCategoriesPageComponent } from './features/categories/pages/dashboard-categories-page/dashboard-categories-page.component';
+
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
+import { LoginPageComponent } from './shared/pages/login-page/login-page.component';
+import { ProductFormPageComponent } from './features/products/pages/product-form-page/product-form-page.component';
+import { DashboardProductsPageComponent } from './features/products/pages/dashboard-products-page/dashboard-products-page.component';
+import { CategoryFormPageComponent } from './features/categories/pages/category-form-page/category-form-page.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { CartSummaryComponent } from './features/cart/pages/cart-summary/cart-summary.component';
 
 const routes: Routes = [{path:'',pathMatch:'full', component: HomePageComponent},
-{path:'login', component:LoginPageComponent},
+
 {path:'category/:categoryId',component:HomePageComponent},
-{path:'product/:productId',component:ProductDetailsComponent},
-{path:'cart',component:CartComponent},
+
+{path:'cart',component:CartSummaryComponent},
 {
   path: 'dashboard', // Grand Parent route
     children: [
@@ -30,7 +34,7 @@ const routes: Routes = [{path:'',pathMatch:'full', component: HomePageComponent}
         ],
       },
     ],
-
+    canActivate: [AuthGuard],
     
 },
 {path: 'dashboard',

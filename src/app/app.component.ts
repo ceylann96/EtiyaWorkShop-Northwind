@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleStrategy } from '@angular/router';
-import { LoadingService } from './services/loading.service';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
